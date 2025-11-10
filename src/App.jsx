@@ -39,7 +39,6 @@ export default function RandomJokeCard() {
     fetchJoke();
   }, []);
 
-  // 🔹 Toggle dark/white mode
   const toggleTheme = () => {
     const newTheme = theme === "dark" ? "light" : "dark";
     setTheme(newTheme);
@@ -47,7 +46,6 @@ export default function RandomJokeCard() {
     localStorage.setItem("theme", newTheme);
   };
 
-  // 🔹 Tambah / hapus joke dari favorites
   const toggleFavorite = (joke) => {
     if (!joke) return;
     const exists = favorites.some((fav) => fav.id === joke.id);
@@ -77,7 +75,6 @@ export default function RandomJokeCard() {
               : "bg-white border-gray-200"
           }`}
         >
-          {/* Header */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-3 sm:gap-4">
             <h1
               className={`text-xl md:text-2xl font-semibold ${
@@ -87,7 +84,6 @@ export default function RandomJokeCard() {
               Random Joke
             </h1>
             <div className="flex items-center gap-2 flex-wrap">
-              {/* 🌗 Tombol Theme */}
               <button
                 onClick={toggleTheme}
                 className={`px-2.5 py-1.5 sm:px-3 rounded-lg text-sm transition ${
@@ -99,7 +95,6 @@ export default function RandomJokeCard() {
                 {theme === "dark" ? "☀️ Light Mode" : "🌙 Dark Mode"}
               </button>
 
-              {/* Tombol New */}
               <button
                 onClick={fetchJoke}
                 className={`inline-flex items-center gap-2 px-2.5 py-1.5 sm:px-3 rounded-lg text-sm transition ${
@@ -111,7 +106,6 @@ export default function RandomJokeCard() {
                 {loading ? "Loading..." : "New"}
               </button>
 
-              {/* Tombol Copy */}
               <button
                 onClick={() => {
                   if (!joke) return;
@@ -128,7 +122,6 @@ export default function RandomJokeCard() {
                 Copy
               </button>
 
-              {/* Tombol Like */}
               <button
                 onClick={() => toggleFavorite(joke)}
                 className={`px-2.5 py-1.5 sm:px-3 rounded-lg text-sm transition ${
@@ -148,7 +141,6 @@ export default function RandomJokeCard() {
             className={theme === "dark" ? "border-white/10" : "border-gray-300"}
           />
 
-          {/* Konten Joke */}
           <div
             className={`p-4 sm:p-6 rounded-xl border mt-4 transition-colors ${
               theme === "dark"
@@ -180,7 +172,6 @@ export default function RandomJokeCard() {
             )}
           </div>
 
-          {/* Footer */}
           <div className="mt-5 text-right">
             <small
               className={`text-xs ${
@@ -191,7 +182,6 @@ export default function RandomJokeCard() {
             </small>
           </div>
 
-          {/* 🌟 Daftar Favorit */}
           {favorites.length > 0 && (
             <div
               className={`mt-6 p-4 rounded-xl border transition-colors ${
