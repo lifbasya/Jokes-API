@@ -6,13 +6,11 @@ export default function RandomJokeCard() {
   const [error, setError] = useState(null);
   const [favorites, setFavorites] = useState([]);
 
-  // 🔹 Ambil data favorites dari localStorage saat pertama kali load
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("favorites")) || [];
     setFavorites(saved);
   }, []);
 
-  // 🔹 Fetch joke dari API
   const fetchJoke = async () => {
     setLoading(true);
     setError(null);
@@ -35,7 +33,6 @@ export default function RandomJokeCard() {
     fetchJoke();
   }, []);
 
-  // 🔹 Tambah / hapus joke dari favorites
   const toggleFavorite = (joke) => {
     if (!joke) return;
     const exists = favorites.some((fav) => fav.id === joke.id);
@@ -57,18 +54,13 @@ export default function RandomJokeCard() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 p-4 sm:p-6">
       <div className="max-w-xl w-full">
         <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-4 sm:p-6 shadow-2xl">
-          {/* Header */}
-          {/* 💡 CHANGE: Use flex-col and flex-row on small screens to stack elements, and use a gap on larger screens */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-4 gap-3 sm:gap-4">
             <h1 className="text-xl md:text-2xl font-semibold text-white">
               Random Joke
             </h1>
-            {/* 💡 CHANGE: Change gap-2 to gap-1 on mobile, wrap buttons using flex-wrap */}
             <div className="flex items-center gap-1 sm:gap-2 flex-wrap">
-              {/* Tombol New */}
               <button
                 onClick={fetchJoke}
-                // 💡 CHANGE: Make button padding slightly smaller on mobile (e.g., px-2.5 py-1.5)
                 className="inline-flex items-center gap-2 px-2.5 py-1.5 sm:px-3 rounded-lg bg-white/6 hover:bg-white/10 text-sm text-white/90 transition shrink-0"
                 aria-label="New joke"
               >
@@ -107,7 +99,6 @@ export default function RandomJokeCard() {
                 <span>{loading ? "Loading..." : "New"}</span>
               </button>
 
-              {/* Tombol Copy */}
               <button
                 onClick={() => {
                   if (!joke) return;
@@ -115,17 +106,14 @@ export default function RandomJokeCard() {
                     `${joke.setup} - ${joke.punchline}`
                   );
                 }}
-                // 💡 CHANGE: Make button padding slightly smaller on mobile
                 className="px-2.5 py-1.5 sm:px-3 rounded-lg bg-white/6 hover:bg-white/10 text-sm text-white/90 transition shrink-0"
                 title="Copy joke"
               >
                 Copy
               </button>
 
-              {/* Tombol Like */}
               <button
                 onClick={() => toggleFavorite(joke)}
-                // 💡 CHANGE: Make button padding slightly smaller on mobile
                 className={`px-2.5 py-1.5 sm:px-3 rounded-lg text-sm transition shrink-0 ${
                   isFavorite(joke?.id)
                     ? "bg-pink-600/60 hover:bg-pink-600 text-white"
@@ -138,9 +126,6 @@ export default function RandomJokeCard() {
             </div>
           </div>
           <hr className="border-white/10 my-4" />{" "}
-          {/* Separator for better structure */}
-          {/* Konten Joke */}
-          {/* 💡 CHANGE: Smaller padding on mobile */}
           <div className="p-4 sm:p-6 rounded-xl bg-gradient-to-b from-white/3 to-white/2 border border-white/5">
             {error ? (
               <p className="text-red-400">{error}</p>
@@ -163,13 +148,11 @@ export default function RandomJokeCard() {
               </div>
             )}
           </div>
-          {/* Footer */}
           <div className="mt-5 text-right">
             <small className="text-xs text-gray-400">
               Source: official-joke-api.appspot.com
             </small>
           </div>
-          {/* 🌟 Daftar Favorit */}
           {favorites.length > 0 && (
             <div className="mt-6 bg-white/5 p-4 rounded-xl border border-white/10">
               <div className="flex items-center justify-between mb-3">
@@ -187,12 +170,10 @@ export default function RandomJokeCard() {
                 </button>
               </div>
 
-              {/* 💡 Improvement: Added a custom scrollbar style class (e.g., 'scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-900' if you have a custom Tailwind setup, or just ensure default overflow is usable) */}
               <ul className="space-y-3 max-h-56 overflow-y-auto pr-1">
                 {favorites.map((f) => (
                   <li
                     key={f.id}
-                    // 💡 CHANGE: Used flex-col on mobile and flex-row on larger screens for better organization
                     className="bg-white/5 border border-white/10 rounded-lg p-3 flex flex-col hover:bg-white/10 transition gap-3"
                   >
                     <div className="flex flex-col gap-2 w-full">
@@ -204,7 +185,6 @@ export default function RandomJokeCard() {
                         {f.punchline}
                       </p>
                     </div>
-                    {/* 💡 CHANGE: Adjusted text and button for mobile readability */}
                     <div className="flex flex-wrap items-center justify-between w-full mt-1 pt-2 border-t border-white/5">
                       <p className="text-xs text-gray-400">
                         Type: {f.type} • ID: {f.id}
